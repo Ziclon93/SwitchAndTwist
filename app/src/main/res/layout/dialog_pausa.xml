@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LayoutDialogPausa"
+    android:layout_width="250dp"
+    android:layout_height="400dp"
+    android:background="@drawable/fondo_paused"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/Layout_menu_pausa"
+        android:layout_width="377dp"
+        android:layout_height="565dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintVertical_bias="0.581">
+
+        <Button
+            android:id="@+id/setResume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/Reset"
+            android:layout_alignLeft="@+id/Reset"
+            android:layout_alignStart="@+id/Reset"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/boto_resume" />
+
+        <Button
+            android:id="@+id/Reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ExitDP"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="9dp"
+            android:background="@drawable/boto_restart" />
+
+        <Button
+            android:id="@+id/ExitDP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/Reset"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/Reset"
+            android:layout_marginBottom="102dp"
+            android:background="@drawable/boto_exit" />
+
+        <ToggleButton
+            android:id="@+id/Sounds"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/toggle_selector_audio"
+            android:layout_above="@+id/setResume"
+            android:layout_alignRight="@+id/setResume"
+            android:layout_alignEnd="@+id/setResume"
+            android:textOff=""
+            android:textOn=""/>
+
+        <ToggleButton
+            android:id="@+id/FXs"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_alignBaseline="@+id/Sounds"
+            android:layout_alignBottom="@+id/Sounds"
+            android:layout_alignLeft="@+id/setResume"
+            android:layout_alignStart="@+id/setResume"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/toggle_selector_fx"
+            android:textOff=""
+            android:textOn=""/>
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

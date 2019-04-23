@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Switch&amp;Twist</string>
+    <string name="jugar">Jugar</string>
+    <string name="SelectorNivells">Selector Nivells</string>
+    <string name="nivells">Nivells</string>
+    <string name="Settings">Settings</string>
+    <string name="Exit">Exit</string>
+
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="Audio">Activar/Desactivar audio</string>
+    <string name="Reinici">Reiniciar joc</string>
+    <string name="Credits">Credits</string>
+    <string name="Atras">Enrere</string>
+
+    <string name="title_activity_credits">CreditsActivity</string>
+    <string name="Noms">Noms als credits</string>
+    <string name="switch_ON">ON</string>
+    <string name="switch_OFF">OFF</string>
+    <string name="title_activity_play">PlayActivity</string>
+
+    <string name="title_activity_niveles">NivelesActivity</string>
+    <string name="switch.">SWITCH</string>
+    <string name="twist">TWIST</string>
+
+    <string name="Resume">RESUME</string>
+    <string name="Reset">RESET</string>
+    <string name="MenuPausa">MENU DE\tPAUSA </string>
+
+    <string name="Level1">Level1</string>
+    <string name="Level2">Level2</string>
+    <string name="Level3">Level3</string>
+    <string name="Level4">Level4</string>
+    <string name="Level5">Level5</string>
+    <string name="Level6">Level6</string>
+    <string name="Level7">Level7</string>
+    <string name="Level8">Level8</string>
+    <string name="Level9">Level9</string>
+    <string name="tobaco">tabac</string>
+    <string name="Slider">Slider</string>
+
+
+</resources>
