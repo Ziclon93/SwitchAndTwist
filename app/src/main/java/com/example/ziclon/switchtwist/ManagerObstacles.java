@@ -42,7 +42,7 @@ public class ManagerObstacles {
         repartirObstacles(nivell);
     }
 
-    public void repartirObstacles(int nivell){
+    private void repartirObstacles(int nivell){
 
         String map = getLvl(nivell,false);
 
@@ -55,8 +55,8 @@ public class ManagerObstacles {
         ArrayList<Obstacle> listaO = new ArrayList<Obstacle>();
         ArrayList<Obstacle> listaI = new ArrayList<Obstacle>();
 
-        for(int it = 0; it < map.length()-1; it++){
-            char c = map.charAt(it+1);
+        for(int it = 0; it < map.length(); it++){
+            char c = map.charAt(it);
             /*
             P = pared
             V = laser Rojo
@@ -92,7 +92,6 @@ public class ManagerObstacles {
              */
 
             switch(c){
-
                 case 'P':
                     ObstacleParet paret = new ObstacleParet(Dades.color_parets,x,y,x+dim,y+dim);
                     listaO.add(paret);
@@ -202,8 +201,8 @@ public class ManagerObstacles {
 
             }
 
-            col = it % 12;
             x = x + dim;
+            col = it % 12;
             if(col == 11){
                 x = 0;
                 y = y + dim;
@@ -373,7 +372,7 @@ public class ManagerObstacles {
         }
     }
 
-    public ArrayList<Integer> getPosInicialDoll(){
+    ArrayList<Integer> getPosInicialDoll(){
         ArrayList<Integer> p = new ArrayList<Integer>();
         p.add(this.posI);
         p.add(this.posJ);
@@ -399,7 +398,7 @@ public class ManagerObstacles {
         }catch(IOException ex){
             ex.printStackTrace();
         }
-        return result;
+        return result.substring(1);
     }
 
     public void draw(Canvas canvas){
@@ -418,15 +417,15 @@ public class ManagerObstacles {
         }
     }
 
-    public ArrayList<ArrayList<Obstacle>> getObstacles(){
+    ArrayList<ArrayList<Obstacle>> getObstacles(){
         return this.obstacles;
     }
 
-    public ArrayList<ArrayList<Obstacle>> getInteracts(){
+    ArrayList<ArrayList<Obstacle>> getInteracts(){
         return this.interacts;
     }
 
-    public void tabacTrobat(Obstacle o){
+    void tabacTrobat(Obstacle o){
 
         this.tabacTrobat = true;
         for(int i = 0; i < this.interacts.size(); i++) {
@@ -440,7 +439,7 @@ public class ManagerObstacles {
         }
     }
 
-    public boolean isTabacTrobat(){
+    boolean isTabacTrobat(){
         return this.tabacTrobat;
     }
 

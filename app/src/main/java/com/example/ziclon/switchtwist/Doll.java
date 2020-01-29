@@ -5,12 +5,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.media.MediaPlayer;
 
 
 public class Doll implements GameObject {
 
-    static final private int vel = (int)((Dades.screen_width/12.0)/30.0);
+    static final private int vel = (int) ((Dades.screen_width / 12.0) / 30.0);
     private Rect dollRect;
     private int color; //0: azul -- 1: rojo
     private int direction;
@@ -22,127 +21,194 @@ public class Doll implements GameObject {
     4- izquierda
     */
     private boolean mooving;
-    private Animacio idle;
-    private Animacio walkRight;
-    private Animacio walkLeft;
     private Point pos_doll;
-    private ManagerAnimacio mA;
+    private AnimacioDollManager mA;
 
-    public Doll(Rect rectangle, int color,Point pos){
+    public Doll(Rect rectangle, int color, Point pos) {
         this.dollRect = rectangle;
         this.color = color;
         this.direction = 0;
         this.mooving = false;
         this.pos_doll = pos;
 
-        ini_anim(0);
+        ini_anim();
     }
 
 
-    public void ini_anim(int i){
+    public void ini_anim() {
+        Bitmap anim1;
+        Bitmap anim2;
+        Bitmap anim3;
+        Bitmap anim4;
+
+        Animacio idleB;
+        Animacio walkUpB;
+        Animacio walkDownB;
+        Animacio walkRightB;
+        Animacio walkLeftB;
+
+        Animacio idleR;
+        Animacio walkUpR;
+        Animacio walkDownR;
+        Animacio walkRightR;
+        Animacio walkLeftR;
 
         BitmapFactory bf = new BitmapFactory();
 
-        if(i == 0) {
-            Bitmap idleImgB = bf.decodeResource(Dades.Context_Actual.getResources(),R.drawable.doll);
-            Bitmap walk1B = bf.decodeResource(Dades.Context_Actual.getResources(),R.drawable.dollblanc);
-            Bitmap walk2B = bf.decodeResource(Dades.Context_Actual.getResources(),R.drawable.doll);
+        anim1 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollb3a);
+        idleB = new Animacio(new Bitmap[]{anim1}, 0.5f);
 
-            Create_anim(idleImgB,walk1B,walk2B);
+        anim1 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollr3a);
+        idleR = new Animacio(new Bitmap[]{anim1}, 0.5f);
 
-        }else {
+        // ARRIBA
+        anim1 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollb2a);
+        anim2 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollb1a);
+        anim3 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollb4a);
+        anim4 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollb3a);
+        walkUpB = new Animacio(new Bitmap[]{anim1, anim2, anim3, anim4}, 0.5f);
 
-            Bitmap idleImgR = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollr);
-            Bitmap walk1R = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollrblanc);
-            Bitmap walk2R = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollr);
+        anim1 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollr2a);
+        anim2 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollr1a);
+        anim3 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollr4a);
+        anim4 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollr3a);
+        walkUpR = new Animacio(new Bitmap[]{anim1, anim2, anim3, anim4}, 0.5f);
 
-            Create_anim(idleImgR,walk1R,walk2R);
-        }
+
+        // ABAJO
+        anim1 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollb3a);
+        anim2 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollb4a);
+        anim3 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollb1a);
+        anim4 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollb2a);
+        walkDownB = new Animacio(new Bitmap[]{anim1, anim2, anim3, anim4}, 0.5f);
+
+
+        anim1 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollr3a);
+        anim2 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollr4a);
+        anim3 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollr1a);
+        anim4 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollr2a);
+        walkDownR = new Animacio(new Bitmap[]{anim1, anim2, anim3, anim4}, 0.5f);
+
+        // DERECHA
+        anim1 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollb3a);
+        anim2 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollb4d);
+        anim3 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollb1d);
+        anim4 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollb2d);
+        walkRightB = new Animacio(new Bitmap[]{anim1, anim2, anim3, anim4}, 0.5f);
+
+        anim1 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollr3a);
+        anim2 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollr4d);
+        anim3 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollr1d);
+        anim4 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollr2b);
+        walkRightR = new Animacio(new Bitmap[]{anim1, anim2, anim3, anim4}, 0.5f);
+
+        // IZQUIERDA
+        anim1 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollb3a);
+        anim2 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollb2d);
+        anim3 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollb1d);
+        anim4 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollb4d);
+        walkLeftB = new Animacio(new Bitmap[]{anim1, anim2, anim3, anim4}, 0.5f);
+
+        anim1 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollr3a);
+        anim2 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollr2b);
+        anim3 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollr1d);
+        anim4 = bf.decodeResource(Dades.Context_Actual.getResources(), R.drawable.dollr4d);
+        walkLeftR = new Animacio(new Bitmap[]{anim1, anim2, anim3, anim4}, 0.5f);
+
+
+        Animacio[] animacioList = {idleB, walkUpB, walkDownB, walkRightB, walkLeftB,
+                idleR, walkUpR, walkDownR, walkRightR, walkLeftR};
+        mA = new AnimacioDollManager(animacioList);
     }
 
 
     @Override
     public void draw(Canvas canvas) {
-        mA.draw(canvas,this.dollRect);
+        mA.draw(canvas, this.dollRect);
     }
 
-    public int getDir(){
+    public int getDir() {
         return this.direction;
     }
 
-    public void setDirection(int dir){
-        if (!this.mooving){
+    public void setDirection(int dir) {
+        if (!this.mooving) {
             this.direction = dir;
             this.mooving = true;
         }
-        if (this.mooving && (dir== 0)){
+        if (this.mooving && (dir == 0)) {
             this.direction = dir;
             this.mooving = false;
         }
     }
 
-    public void move(float l){
-       int speed = (int)(this.vel * l);
+    public void move(float l) {
+        int speed = (int) (this.vel * l);
         System.out.println("----------------\n" + speed + " " + l);
-        switch(this.direction){
+        switch (this.direction) {
             case 0: // quieto
-                if (this.mooving){
+                if (this.mooving) {
                     this.mooving = false;
                 }
                 break;
             case 1: //arriba
-                if (!this.mooving){
+                if (!this.mooving) {
                     this.mooving = true;
                 }
-                this.pos_doll.set(pos_doll.x ,pos_doll.y - speed);
+                this.pos_doll.set(pos_doll.x, pos_doll.y - speed);
 
                 break;
             case 2: //abajo
-                if (!this.mooving){
+                if (!this.mooving) {
                     this.mooving = true;
                 }
-                this.pos_doll.set(pos_doll.x ,pos_doll.y + speed);
+                this.pos_doll.set(pos_doll.x, pos_doll.y + speed);
 
                 break;
             case 3: //Derecha
-                if (!this.mooving){
+                if (!this.mooving) {
                     this.mooving = true;
                 }
-                this.pos_doll.set(pos_doll.x + speed ,pos_doll.y);
+                this.pos_doll.set(pos_doll.x + speed, pos_doll.y);
                 break;
             case 4: //Izquierda
-                if (!this.mooving){
+                if (!this.mooving) {
                     this.mooving = true;
                 }
-                this.pos_doll.set(pos_doll.x - speed ,pos_doll.y);
+                this.pos_doll.set(pos_doll.x - speed, pos_doll.y);
                 break;
         }
     }
-    public void buttonTwist(int dir){
+
+    public void buttonTwist(int dir) {
         this.direction = dir;
-        if(!this.mooving){
-            this.mooving =true;
+        if (!this.mooving) {
+            this.mooving = true;
         }
     }
 
-    public void colisionConPared(float l){
-        int speed = (int)(this.vel * l);
-        switch(this.direction){
+    public void colisionConPared(float l) {
+        int speed = (int) (this.vel * l);
+        switch (this.direction) {
             case 1: //arriba
-                this.pos_doll.set(pos_doll.x ,pos_doll.y + (2*speed));
+                this.pos_doll.set(pos_doll.x, pos_doll.y + (2 * speed));
+                this.direction = 0;
                 this.mooving = false;
 
                 break;
             case 2: //abajo
-                this.pos_doll.set(pos_doll.x ,pos_doll.y - (2*speed));
+                this.pos_doll.set(pos_doll.x, pos_doll.y - (2 * speed));
+                this.direction = 0;
                 this.mooving = false;
                 break;
             case 3: //Derecha
-                this.pos_doll.set(pos_doll.x - (2*speed) ,pos_doll.y);
+                this.pos_doll.set(pos_doll.x - (2 * speed), pos_doll.y);
+                this.direction = 0;
                 this.mooving = false;
                 break;
             case 4: //Izquierda
-                this.pos_doll.set(pos_doll.x + (speed*2) ,pos_doll.y);
+                this.pos_doll.set(pos_doll.x + (speed * 2), pos_doll.y);
+                this.direction = 0;
                 this.mooving = false;
                 break;
         }
@@ -156,50 +222,37 @@ public class Doll implements GameObject {
     public void update(Point point, float l) {
         float oldLeft = dollRect.left;
 
-        dollRect.set(point.x - dollRect.width()/2, point.y - dollRect.height()/2, point.x + dollRect.width()/2, point.y + dollRect.height()/2);
+        dollRect.set(point.x - dollRect.width() / 2, point.y - dollRect.height() / 2, point.x + dollRect.width() / 2, point.y + dollRect.height() / 2);
 
         int state = 0;
 
-        if(dollRect.left-oldLeft > 130) {
+        if (dollRect.left - oldLeft > 130) {
             state = 1;
-        }else if (dollRect.left - oldLeft < 130){
+        } else if (dollRect.left - oldLeft < 130) {
             state = 2;
         }
 
-        if (this.mooving){
+        if (this.mooving) {
             this.move(l);
         }
-        mA.playAnimacio(state);
+        mA.playAnimacio((this.color * 5) + this.direction );
         mA.update();
     }
 
-    public Rect getRect(){
+    public Rect getRect() {
         return dollRect;
     }
 
-
-    public void Create_anim(Bitmap idleImg,Bitmap walk1,Bitmap walk2){
-        idle = new Animacio(new Bitmap[]{idleImg}, 2);
-
-        walkRight = new Animacio(new Bitmap[]{walk1,walk2}, 0.5f);
-        walkLeft = new Animacio(new Bitmap[]{walk1,walk2}, 0.5f);
-
-        mA = new ManagerAnimacio(new Animacio[]{idle,walkRight,walkLeft});
-    }
-
-    public void Switch(){
-        if (color == 0){
-            ini_anim(1);
+    public void Switch() {
+        if (color == 0) {
             this.color = 1;
-        }
-        else{
-            ini_anim(0);
+        } else {
             this.color = 0;
         }
     }
 
 
-    public int getColor(){
+    public int getColor() {
         return this.color;
     }
 
@@ -207,7 +260,7 @@ public class Doll implements GameObject {
         this.mooving = movement;
     }
 
-    public void setPos(int x, int y){
-        this.pos_doll.set(x,y);
+    public void setPos(int x, int y) {
+        this.pos_doll.set(x, y);
     }
 }

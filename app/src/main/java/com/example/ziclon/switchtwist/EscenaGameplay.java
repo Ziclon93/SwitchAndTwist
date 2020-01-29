@@ -99,7 +99,7 @@ public class EscenaGameplay implements Escena {
                     break;
                 case 6:
                     verdActivat = !verdActivat;
-                    mO.botoVerd(verdActivat);
+                    //mO.botoVerd(verdActivat);
                     break;
                 default:
                     if (GameOver && System.currentTimeMillis() - GameOver_time >= 2000) {

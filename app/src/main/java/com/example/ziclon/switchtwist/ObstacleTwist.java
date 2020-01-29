@@ -5,39 +5,32 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
 
-public class ObstacleTwist extends Obstacle{
+public class ObstacleTwist extends Obstacle {
     private Bitmap img;
     private int dir;
 
-    public ObstacleTwist(int dir, int color, int x_inici,int y_inici, int x_final, int y_final){
-        super(color,x_inici,y_inici, x_final, y_final);
+    public ObstacleTwist(int dir, int color, int x_inici, int y_inici, int x_final, int y_final) {
+        super(color, x_inici, y_inici, x_final, y_final);
         this.dir = dir;
-        if (color == Dades.color_Blau){
-            if(dir == 0){
+        if (color == Dades.color_Blau) {
+            if (dir == 0) {
                 img = BitmapFactory.decodeResource(Dades.Context_Actual.getResources(), R.drawable.arribab);
-            }
-            else if(dir == 1){
+            } else if (dir == 1) {
                 img = BitmapFactory.decodeResource(Dades.Context_Actual.getResources(), R.drawable.abajob);
-            }
-            else if(dir == 2){
+            } else if (dir == 2) {
                 img = BitmapFactory.decodeResource(Dades.Context_Actual.getResources(), R.drawable.derechab);
-            }
-            else if(dir == 3){
+            } else if (dir == 3) {
                 img = BitmapFactory.decodeResource(Dades.Context_Actual.getResources(), R.drawable.izquierdab);
             }
 
-        }
-        else{
-            if(dir == 0){
+        } else {
+            if (dir == 0) {
                 img = BitmapFactory.decodeResource(Dades.Context_Actual.getResources(), R.drawable.arribar);
-            }
-            else if(dir == 1){
+            } else if (dir == 1) {
                 img = BitmapFactory.decodeResource(Dades.Context_Actual.getResources(), R.drawable.abajor);
-            }
-            else if(dir == 2){
+            } else if (dir == 2) {
                 img = BitmapFactory.decodeResource(Dades.Context_Actual.getResources(), R.drawable.derechar);
-            }
-            else if(dir == 3){
+            } else if (dir == 3) {
                 img = BitmapFactory.decodeResource(Dades.Context_Actual.getResources(), R.drawable.izquierdar);
             }
         }
@@ -45,11 +38,10 @@ public class ObstacleTwist extends Obstacle{
 
     @Override
     public void update() {
-
     }
-    public void draw(Canvas canvas){
 
-        canvas.drawBitmap(img,null,obstacle,null);
+    public void draw(Canvas canvas) {
+        canvas.drawBitmap(img, null, obstacle, null);
     }
 
     @Override
@@ -57,7 +49,7 @@ public class ObstacleTwist extends Obstacle{
         return this;
     }
 
-    public int getDir(){
+    public int getDir() {
         return this.dir;
     }
 }

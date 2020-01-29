@@ -6,21 +6,21 @@ import android.graphics.Canvas;
 
 public interface Escena {
 
-    public void uptade(float l);
-    public void draw(Canvas canvas);
-    public void finalitzar();
-    public void Switch();
-    public void Twist();
+    void uptade(float l);
+    void draw(Canvas canvas);
+    void finalitzar();
+    void Switch();
+    void Twist();
 
-    public void setDirection(int dir);
+    void setDirection(int dir);
 
-    public void Reset();
+    void Reset();
 
-    public boolean isGameWin();
+    boolean isGameWin();
 
-    public boolean isGameOver();
+    boolean isGameOver();
 
-    public boolean isTabacTrobat();
+    boolean isTabacTrobat();
 
 
 }

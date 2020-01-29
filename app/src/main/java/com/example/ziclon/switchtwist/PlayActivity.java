@@ -21,7 +21,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private GamePanel panell;
     private Button SwitchBtn, TwistBtn, PauseBtn;
     private Dialog dialog;
-    private float firstTouchX,firstTouchY;
+    private float firstTouchX, firstTouchY;
     private Controller ctr;
 
     @Override
@@ -35,8 +35,8 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         Intent i = getIntent();
         int nivell = i.getIntExtra("nivell", 0);
 
-        panell = new GamePanel(this,nivell);
-        RelativeLayout pan = (RelativeLayout)findViewById(R.id.PantallaJoc);
+        panell = new GamePanel(this, nivell);
+        RelativeLayout pan = (RelativeLayout) findViewById(R.id.PantallaJoc);
         pan.addView(panell);
 
         SwitchBtn = (Button) findViewById(R.id.Switch);
@@ -56,46 +56,38 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
 
         ctr = ((Controller) getApplicationContext());
         ctr.playMusic(1);
-
-
-
     }
 
-    public void onResume(){
+    public void onResume() {
         super.onResume();
-
-        //ctr.playMusic(1);
-
-        /*
-        if (!this.ctr.getMusica().isPlaying()){
+        if (!this.ctr.getMusicaGaming().isPlaying()){
             ctr.playMusic(1);
         }
-        */
     }
 
-    public void onPause(){
+    public void onPause() {
         super.onPause();
-        if (this.ctr.getMusica().isPlaying()){
+        if (this.ctr.getMusicaGaming().isPlaying()) {
             ctr.stopMusic(1);
         }
     }
 
-    public void onStop(){
+    public void onStop() {
         super.onStop();
 
-        if (this.ctr.getMusica().isPlaying()){
+        if (this.ctr.getMusicaGaming().isPlaying()) {
             ctr.stopMusic(1);
         }
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         showdialogPausa();
     }
 
 
-    public void onClick(View v){
-        switch(v.getId()){
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.Switch:
                 ctr.playSwitch();
                 this.panell.Switch();
@@ -122,25 +114,30 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
 
 
         Button exitDialog = (Button) dialog.findViewById(R.id.ExitDP);
-        Button Resume = (Button) dialog.findViewById(R.id.setResume) ;
+        Button Resume = (Button) dialog.findViewById(R.id.setResume);
         Button reset = (Button) dialog.findViewById(R.id.Reset);
         final ToggleButton togglBttnFx = (ToggleButton) dialog.findViewById(R.id.FXs);
         final ToggleButton togglBttnSound = (ToggleButton) dialog.findViewById(R.id.Sounds);
 
-        if (ctr.isFX()) { togglBttnFx.setChecked(true); }
-        else{ togglBttnFx.setChecked(false); }
+        if (ctr.isFX()) {
+            togglBttnFx.setChecked(true);
+        } else {
+            togglBttnFx.setChecked(false);
+        }
 
-        if (ctr.isMusica()) { togglBttnSound.setChecked(true); }
-        else{ togglBttnSound.setChecked(false); }
+        if (ctr.isMusica()) {
+            togglBttnSound.setChecked(true);
+        } else {
+            togglBttnSound.setChecked(false);
+        }
 
         togglBttnFx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Controller ctr = ((Controller) getApplicationContext());
-                if(togglBttnFx.isChecked()){
+                if (togglBttnFx.isChecked()) {
                     ctr.onFX();
-                }
-                else{
+                } else {
                     ctr.offFX();
                 }
             }
@@ -150,10 +147,9 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 Controller ctr = ((Controller) getApplicationContext());
-                if(togglBttnSound.isChecked()){
+                if (togglBttnSound.isChecked()) {
                     ctr.soundMusic();
-                }
-                else{
+                } else {
                     ctr.silenceMusic();
                     //ctr.stopMusic(1);
                 }
@@ -191,10 +187,10 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        dialog.setOnKeyListener(new DialogInterface.OnKeyListener(){
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event){
-                if(keyCode == KeyEvent.KEYCODE_BACK){
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
                     panell.setResume();
                     dialog.dismiss();
                 }
@@ -205,8 +201,8 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         dialog.show();
     }
 
-    public boolean onTouchEvent(MotionEvent event){
-        switch(event.getAction()){
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 //Aqui guardamos en una variable privada de clase las coordenadas del primer toque:
                 firstTouchX = event.getX();
@@ -214,19 +210,16 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case MotionEvent.ACTION_UP:
                 //comparamos si se ha desplazado mas en el eje x o y
-                if((Math.abs(event.getX() - this.firstTouchX )) > ((Math.abs(event.getY() - this.firstTouchY )))){ //eje X
-                    if (event.getX() >this.firstTouchX){//derecha
+                if ((Math.abs(event.getX() - this.firstTouchX)) > ((Math.abs(event.getY() - this.firstTouchY)))) { //eje X
+                    if (event.getX() > this.firstTouchX) {//derecha
                         panell.setDirection(3);
-                    }
-                    else{//izquierda
+                    } else {//izquierda
                         panell.setDirection(4);
                     }
-                }
-                else{ //eje Y
-                    if (event.getY() >this.firstTouchY){ //abajo
+                } else { //eje Y
+                    if (event.getY() > this.firstTouchY) { //abajo
                         panell.setDirection(2);
-                    }
-                    else{//arriba
+                    } else {//arriba
                         panell.setDirection(1);
                     }
                 }
@@ -234,7 +227,6 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         }
         return true;
     }
-
 
 
 }

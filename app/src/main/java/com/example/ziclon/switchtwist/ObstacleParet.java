@@ -8,9 +8,8 @@ public class ObstacleParet extends Obstacle {
 
     private Bitmap img;
 
-    public ObstacleParet(int color, int x_inici,int y_inici, int x_final, int y_final) {
-        super(color,x_inici,y_inici,x_final, y_final);
-
+    public ObstacleParet(int color, int x_inici, int y_inici, int x_final, int y_final) {
+        super(color, x_inici, y_inici, x_final, y_final);
         img = BitmapFactory.decodeResource(Dades.Context_Actual.getResources(), R.drawable.brick);
     }
 
@@ -20,12 +19,13 @@ public class ObstacleParet extends Obstacle {
     }
 
     @Override
-    public void update(){}
+    public void update() {
+    }
 
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        canvas.drawBitmap(img,null,obstacle,null);
+        canvas.drawBitmap(img, null, obstacle, null);
     }
 
 

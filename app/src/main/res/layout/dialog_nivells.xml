@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,8 +8,8 @@
         android:id="@+id/Layout_levels"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/fondo_nivells"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -19,25 +18,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-        <ImageView
-            android:id="@+id/tabac_lvl2"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignLeft="@+id/slider"
-            android:layout_alignStart="@+id/slider"
-            android:layout_below="@+id/level2"
-            app:srcCompat="@drawable/tobacco" />
 
         <Button
             android:id="@+id/boto_close_x"
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="11dp"
             android:layout_marginRight="11dp"
-            android:layout_marginTop="20dp"
             android:background="@drawable/boto_close_x" />
 
         <Button
@@ -46,8 +37,8 @@
             android:layout_height="40dp"
             android:layout_alignBaseline="@+id/Next"
             android:layout_alignBottom="@+id/Next"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:background="@drawable/boto_forward" />
 
         <Button
@@ -64,8 +55,7 @@
             android:id="@+id/level1"
             android:layout_width="56dp"
             android:layout_height="57dp"
-            android:layout_below="@+id/boto_close_x"
-            android:layout_marginTop="19dp"
+            android:layout_marginTop="80dp"
             android:layout_toEndOf="@+id/Forward"
             android:layout_toRightOf="@+id/Forward"
             android:background="@drawable/level1" />
@@ -76,14 +66,15 @@
             android:layout_height="57dp"
             android:layout_alignBaseline="@+id/level2"
             android:layout_alignBottom="@+id/level2"
-            android:layout_toLeftOf="@+id/Next"
             android:layout_toStartOf="@+id/Next"
+            android:layout_toLeftOf="@+id/Next"
             android:background="@drawable/level3" />
 
         <Button
             android:id="@+id/level2"
             android:layout_width="56dp"
             android:layout_height="57dp"
+            android:layout_below="@+id/boto_close_x"
             android:layout_alignBaseline="@+id/level1"
             android:layout_alignBottom="@+id/level1"
             android:layout_centerHorizontal="true"
@@ -94,80 +85,95 @@
             android:layout_width="56dp"
             android:layout_height="57dp"
             android:layout_alignTop="@+id/Forward"
-            android:layout_toEndOf="@+id/level1"
-            android:layout_toRightOf="@+id/level1"
+            android:layout_marginStart="45dp"
+            android:layout_marginLeft="45dp"
+            android:layout_toEndOf="@+id/Forward"
+            android:layout_toRightOf="@+id/Forward"
             android:background="@drawable/level4" />
 
         <Button
             android:id="@+id/level5"
             android:layout_width="56dp"
             android:layout_height="57dp"
-            android:background="@drawable/level5"
-            android:layout_above="@+id/slider"
-            android:layout_toRightOf="@+id/Home"
-            android:layout_toEndOf="@+id/Home" />
+            android:layout_alignTop="@+id/Forward"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="45dp"
+            android:layout_toEndOf="@+id/level4"
+            android:layout_toRightOf="@+id/level4"
+            android:background="@drawable/level5" />
 
 
         <ImageView
             android:id="@+id/slider"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/slider"
-            android:layout_marginTop="29dp"
             android:layout_below="@+id/level4"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="29dp"
+            app:srcCompat="@drawable/slider" />
 
         <Button
             android:id="@+id/Home"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/boto_home"
             android:layout_below="@+id/slider"
-            android:layout_alignRight="@+id/level2"
-            android:layout_alignEnd="@+id/level2" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/boto_home" />
 
         <ImageView
             android:id="@+id/tabac_lvl1"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:srcCompat="@drawable/tobacco"
             android:layout_below="@+id/level1"
-            android:layout_alignRight="@+id/level1"
             android:layout_alignEnd="@+id/level1"
+            android:layout_alignRight="@+id/level1"
+            android:layout_marginEnd="11dp"
             android:layout_marginRight="11dp"
-            android:layout_marginEnd="11dp" />
+            app:srcCompat="@drawable/tobacco" />
+
+        <ImageView
+            android:id="@+id/tabac_lvl2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/level2"
+            android:layout_alignEnd="@+id/level2"
+            android:layout_alignRight="@+id/level2"
+            android:layout_marginEnd="11dp"
+            android:layout_marginRight="11dp"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/tobacco" />
 
         <ImageView
             android:id="@+id/tabac_lvl3"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:srcCompat="@drawable/tobacco"
             android:layout_below="@+id/level3"
+            android:layout_toStartOf="@+id/boto_close_x"
             android:layout_toLeftOf="@+id/boto_close_x"
-            android:layout_toStartOf="@+id/boto_close_x" />
+            app:srcCompat="@drawable/tobacco" />
 
         <ImageView
             android:id="@+id/tabac_lvl4"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:srcCompat="@drawable/tobacco"
             android:layout_below="@+id/level4"
-            android:layout_alignRight="@+id/level4"
             android:layout_alignEnd="@+id/level4"
+            android:layout_alignRight="@+id/level4"
+            android:layout_marginEnd="12dp"
             android:layout_marginRight="12dp"
-            android:layout_marginEnd="12dp" />
+            app:srcCompat="@drawable/tobacco" />
 
         <ImageView
             android:id="@+id/tabac_lvl5"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:srcCompat="@drawable/tobacco"
             android:layout_below="@+id/level5"
-            android:layout_alignRight="@+id/level5"
             android:layout_alignEnd="@+id/level5"
+            android:layout_alignRight="@+id/level5"
+            android:layout_marginEnd="12dp"
             android:layout_marginRight="12dp"
-            android:layout_marginEnd="12dp" />
+            app:srcCompat="@drawable/tobacco" />
 
 
     </RelativeLayout>

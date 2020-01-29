@@ -18,7 +18,7 @@ import android.widget.ToggleButton;
 import android.graphics.PorterDuff;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnTouchListener{
+public class MainActivity extends AppCompatActivity implements View.OnTouchListener {
 
     private ImageButton playbtn, nivelesbtn;
     private boolean audioON = false;
@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     private boolean actualitzat1 = false;
     private boolean actualitzat2 = false;
 
-    private Button settingsbtn,level1, level2, level3, level4, level5, level6, level7, level8, level9,level10;
-    private ImageView tabac_lvl1,tabac_lvl2, tabac_lvl3,tabac_lvl4,tabac_lvl5,tabac_lvl6,tabac_lvl7,tabac_lvl8,tabac_lvl9,tabac_lvl10;
+    private Button settingsbtn, level1, level2, level3, level4, level5, level6, level7, level8, level9, level10;
+    private ImageView tabac_lvl1, tabac_lvl2, tabac_lvl3, tabac_lvl4, tabac_lvl5, tabac_lvl6, tabac_lvl7, tabac_lvl8, tabac_lvl9, tabac_lvl10;
 
     private Controller ctr;
 
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         ctr.ctrMusica();
         ctr.ctrMusicaGamming();
 
-        playbtn  = (ImageButton) findViewById(R.id.jugar_layout);
+        playbtn = (ImageButton) findViewById(R.id.jugar_layout);
         settingsbtn = (Button) findViewById(R.id.Settings_act);
         nivelesbtn = (ImageButton) findViewById(R.id.Niveles);
 
@@ -63,18 +63,14 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
         ctr.playMusic(0);
 
+        /*
 
         if(Dades.isFirstStart) {
-            Intent i = new Intent(MainActivity.this, IntroActivity.class);
+            Intent i = new Intent(MainActivity.this, PlayActivity.class);
             startActivity(i);
             Dades.isFirstStart = false;
         }
-
-
-
-
-
-
+         */
     }
 
     //tancar el proces al clicar amb el botó fisic de tirar endarrere.
@@ -93,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         ctr.playMusic(0);
         /*
@@ -102,38 +98,36 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             ctr.playMusic(0);
         }
         */
-        if(actualitzat1){
-            setNivellsEnabled(1,5);
-            setTabacEnabled(1,5);
+        if (actualitzat1) {
+            setNivellsEnabled(1, 5);
+            setTabacEnabled(1, 5);
         }
-        if(actualitzat2){
-            setNivellsEnabled(6,10);
-            setTabacEnabled(6,10);
+        if (actualitzat2) {
+            setNivellsEnabled(6, 10);
+            setTabacEnabled(6, 10);
         }
 
     }
 
-    public void onPause(){
+    public void onPause() {
         super.onPause();
-        if (this.ctr.getMusica().isPlaying()){
-            //ctr.stopMusic(0);
+        if (this.ctr.getMusica().isPlaying()) {
+            ctr.stopMusic(0);
         }
     }
 
-    public void onStop(){
+    public void onStop() {
         super.onStop();
-
-        if (this.ctr.getMusica().isPlaying()){
-            //ctr.stopMusic(0);
+        if (this.ctr.getMusica().isPlaying()) {
+            ctr.stopMusic(0);
         }
     }
-
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.jugar_layout:
-                switch(event.getAction()){
+                switch (event.getAction()) {
                     case MotionEvent.ACTION_UP:
                         ctr.playBoton();
                         ctr.stopMusic(0);
@@ -145,19 +139,18 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 break;
 
             case R.id.Niveles:
-                switch(event.getAction()){
+                switch (event.getAction()) {
                     case MotionEvent.ACTION_UP:
                         ctr.playBoton();
                         final Dialog dialogNivells = new Dialog(this);
-                        final Dialog dialogNivells2 = new Dialog(this);
 
-                        dialogNivells(dialogNivells,dialogNivells2);
+                        dialogNivells(dialogNivells, 1);
                         break;
 
                 }
                 break;
             case R.id.Settings_act:
-                switch(event.getAction()){
+                switch (event.getAction()) {
                     case MotionEvent.ACTION_UP:
                         ctr.playBoton();
 
@@ -174,11 +167,17 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                         final ToggleButton togglBttnFx = (ToggleButton) dialogSettings.findViewById(R.id.FX_Sound);
                         final ToggleButton togglBttnSound = (ToggleButton) dialogSettings.findViewById(R.id.song_Sound);
 
-                        if (ctr.isFX()) { togglBttnFx.setChecked(true); }
-                        else{ togglBttnFx.setChecked(false); }
+                        if (ctr.isFX()) {
+                            togglBttnFx.setChecked(true);
+                        } else {
+                            togglBttnFx.setChecked(false);
+                        }
 
-                        if (ctr.isMusica()) { togglBttnSound.setChecked(true); }
-                        else{ togglBttnSound.setChecked(false); }
+                        if (ctr.isMusica()) {
+                            togglBttnSound.setChecked(true);
+                        } else {
+                            togglBttnSound.setChecked(false);
+                        }
 
 
                         Button reiniciar = (Button) dialogSettings.findViewById(R.id.Reiniciar);
@@ -207,10 +206,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                             @Override
                             public void onClick(View v) {
                                 Controller ctr = ((Controller) getApplicationContext());
-                                if(togglBttnFx.isChecked()){
+                                if (togglBttnFx.isChecked()) {
                                     ctr.onFX();
-                                }
-                                else{
+                                } else {
                                     ctr.offFX();
                                 }
                             }
@@ -220,11 +218,10 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                             @Override
                             public void onClick(View v) {
                                 Controller ctr = ((Controller) getApplicationContext());
-                                if(togglBttnSound.isChecked()){
+                                if (togglBttnSound.isChecked()) {
                                     //ctr.playMusic(0);
                                     ctr.soundMusic();
-                                }
-                                else{
+                                } else {
                                     ctr.silenceMusic();
                                     //ctr.stopMusic(0);
                                 }
@@ -248,416 +245,425 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent){
-        super.onActivityResult(requestCode,resultCode,intent);
-        switch (resultCode){
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        switch (resultCode) {
             case RESULT_OK:
                 audioON = intent.getExtras().getBoolean("Audio");
                 break;
         }
     }
 
-    private void dialogNivells(final Dialog dialogNivells, final Dialog dialogNivells2){
+    private void dialogNivells(final Dialog dialogNivells, int nivellsIndex) {
 
+
+
+        Button next;
+        Button home;
+        Button close;
+        Button forward;
+
+        switch (nivellsIndex){
+            case 1:
+                //fondo transparente!
+                dialogNivells.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+                //evitar que es tanqui al tocar fora
+                dialogNivells.setCanceledOnTouchOutside(false);
+
+                dialogNivells.setContentView(R.layout.dialog_nivells);
+                dialogNivells.show();
+
+                level1 = (Button) dialogNivells.findViewById(R.id.level1);
+                level2 = (Button) dialogNivells.findViewById(R.id.level2);
+                level3 = (Button) dialogNivells.findViewById(R.id.level3);
+                level4 = (Button) dialogNivells.findViewById(R.id.level4);
+                level5 = (Button) dialogNivells.findViewById(R.id.level5);
+
+                tabac_lvl1 = (ImageView) dialogNivells.findViewById(R.id.tabac_lvl1);
+                tabac_lvl2 = (ImageView) dialogNivells.findViewById(R.id.tabac_lvl2);
+                tabac_lvl3 = (ImageView) dialogNivells.findViewById(R.id.tabac_lvl3);
+                tabac_lvl4 = (ImageView) dialogNivells.findViewById(R.id.tabac_lvl4);
+                tabac_lvl5 = (ImageView) dialogNivells.findViewById(R.id.tabac_lvl5);
+
+                next = (Button) dialogNivells.findViewById(R.id.Next);
+                home = (Button) dialogNivells.findViewById(R.id.Home);
+                close = (Button) dialogNivells.findViewById(R.id.boto_close_x);
+                forward = (Button) dialogNivells.findViewById(R.id.Forward);
+
+                setNivellsEnabled(1, 5);
+                setTabacEnabled(1, 5);
+                actualitzat1 = true;
+
+                level1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ctr.playBoton();
+                        ctr.stopMusic(0);
+                        Intent i = new Intent(MainActivity.this, PlayActivity.class);
+                        i.putExtra("nivell", 1);
+                        startActivity(i);
+                    }
+                });
+
+                level2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ctr.playBoton();
+                        ctr.stopMusic(0);
+                        Intent i = new Intent(MainActivity.this, PlayActivity.class);
+                        i.putExtra("nivell", 2);
+                        startActivity(i);
+                    }
+                });
+                level3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ctr.playBoton();
+                        ctr.stopMusic(0);
+                        Intent i = new Intent(MainActivity.this, PlayActivity.class);
+                        i.putExtra("nivell", 3);
+                        startActivity(i);
+                    }
+                });
+                level4.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ctr.playBoton();
+                        ctr.stopMusic(0);
+                        Intent i = new Intent(MainActivity.this, PlayActivity.class);
+                        i.putExtra("nivell", 4);
+                        startActivity(i);
+                    }
+                });
+                level5.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ctr.playBoton();
+                        ctr.stopMusic(0);
+                        Intent i = new Intent(MainActivity.this, PlayActivity.class);
+                        i.putExtra("nivell", 5);
+                        startActivity(i);
+                    }
+                });
+                home.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ctr.playBoton();
+                        dialogNivells.dismiss();
+                    }
+                });
+                close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ctr.playBoton();
+                        dialogNivells.dismiss();
+                    }
+                });
+                next.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ctr.playBoton();
+                        dialogNivells(dialogNivells, 2);
+                    }
+                });
+                forward.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ctr.playBoton();
+                    }
+                });
+                break;
+
+            case 2:
+                //fondo transparente!
+                dialogNivells.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+                //evitar que es tanqui al tocar fora
+                dialogNivells.setCanceledOnTouchOutside(false);
+
+                dialogNivells.setContentView(R.layout.dialog_nivells2);
+                dialogNivells.show();
+
+                level6 = (Button) dialogNivells.findViewById(R.id.level6);
+                level7 = (Button) dialogNivells.findViewById(R.id.level7);
+                level8 = (Button) dialogNivells.findViewById(R.id.level8);
+                level9 = (Button) dialogNivells.findViewById(R.id.level9);
+                level10 = (Button) dialogNivells.findViewById(R.id.level10);
+
+                tabac_lvl6 = (ImageView) dialogNivells.findViewById(R.id.tabac_lvl6);
+                tabac_lvl7 = (ImageView) dialogNivells.findViewById(R.id.tabac_lvl7);
+                tabac_lvl8 = (ImageView) dialogNivells.findViewById(R.id.tabac_lvl8);
+                tabac_lvl9 = (ImageView) dialogNivells.findViewById(R.id.tabac_lvl9);
+                tabac_lvl10 = (ImageView) dialogNivells.findViewById(R.id.tabac_lvl10);
+
+                next = (Button) dialogNivells.findViewById(R.id.Next2);
+                home = (Button) dialogNivells.findViewById(R.id.Home2);
+                close = (Button) dialogNivells.findViewById(R.id.boto_close_x2);
+                forward = (Button) dialogNivells.findViewById(R.id.Forward2);
+
+                setNivellsEnabled(6, 10);
+                setTabacEnabled(6, 10);
+                actualitzat2 = true;
+
+                level6.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ctr.playBoton();
+                        ctr.stopMusic(0);
+                        Intent i = new Intent(MainActivity.this, PlayActivity.class);
+                        i.putExtra("nivell", 6);
+                        startActivity(i);
+                    }
+                });
+
+                level7.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ctr.playBoton();
+                        ctr.stopMusic(0);
+                        Intent i = new Intent(MainActivity.this, PlayActivity.class);
+                        i.putExtra("nivell", 7);
+                        startActivity(i);
+                    }
+                });
+                level8.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ctr.playBoton();
+                        ctr.stopMusic(0);
+                        Intent i = new Intent(MainActivity.this, PlayActivity.class);
+                        i.putExtra("nivell", 8);
+                        startActivity(i);
+                    }
+                });
+                level9.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ctr.playBoton();
+                        ctr.stopMusic(0);
+                        Intent i = new Intent(MainActivity.this, PlayActivity.class);
+                        i.putExtra("nivell", 9);
+                        startActivity(i);
+                    }
+                });
+                level10.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ctr.playBoton();
+                        ctr.stopMusic(0);
+                        Intent i = new Intent(MainActivity.this, PlayActivity.class);
+                        i.putExtra("nivell", 10);
+                        startActivity(i);
+                    }
+                });
+                home.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ctr.playBoton();
+                        dialogNivells.dismiss();
+                        dialogNivells.dismiss();
+                    }
+                });
+                close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ctr.playBoton();
+                        dialogNivells.dismiss();
+                        dialogNivells.dismiss();
+                    }
+                });
+                next.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ctr.playBoton();
+                    }
+                });
+                forward.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ctr.playBoton();
+                        dialogNivells(dialogNivells, 1);
+                    }
+                });
+        }
+    }
+
+    private void dialogNivells2(final Dialog dialogNivells, final Dialog dialogNivells2) {
         //fondo transparente!
         dialogNivells.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         //evitar que es tanqui al tocar fora
         dialogNivells.setCanceledOnTouchOutside(false);
 
-        dialogNivells.setContentView(R.layout.dialog_nivells);
-        dialogNivells.show();
-
-        level1 = (Button) dialogNivells.findViewById(R.id.level1);
-        level2 = (Button) dialogNivells.findViewById(R.id.level2);
-        level3 = (Button) dialogNivells.findViewById(R.id.level3);
-        level4 = (Button) dialogNivells.findViewById(R.id.level4);
-        level5 = (Button) dialogNivells.findViewById(R.id.level5);
-
-
-        tabac_lvl1 = (ImageView) dialogNivells.findViewById(R.id.tabac_lvl1);
-        tabac_lvl2 = (ImageView) dialogNivells.findViewById(R.id.tabac_lvl2);
-        tabac_lvl3 = (ImageView) dialogNivells.findViewById(R.id.tabac_lvl3);
-        tabac_lvl4 = (ImageView) dialogNivells.findViewById(R.id.tabac_lvl4);
-        tabac_lvl5 = (ImageView) dialogNivells.findViewById(R.id.tabac_lvl5);
-
-
-
-        Button next = (Button) dialogNivells.findViewById(R.id.Next);
-        Button home = (Button) dialogNivells.findViewById(R.id.Home);
-        Button close = (Button) dialogNivells.findViewById(R.id.boto_close_x);
-        Button forward = (Button) dialogNivells.findViewById(R.id.Forward);
-
-        setNivellsEnabled(1,5);
-        setTabacEnabled(1,5);
-        actualitzat1 = true;
-
-
-        level1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ctr.playBoton();
-                ctr.stopMusic(0);
-                Intent i = new Intent(MainActivity.this, PlayActivity.class);
-                i.putExtra("nivell",1);
-                startActivity(i);
-            }
-        });
-
-        level2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ctr.playBoton();
-                ctr.stopMusic(0);
-                Intent i = new Intent(MainActivity.this, PlayActivity.class);
-                i.putExtra("nivell",2);
-                startActivity(i);
-            }
-        });
-        level3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ctr.playBoton();
-                ctr.stopMusic(0);
-                Intent i = new Intent(MainActivity.this, PlayActivity.class);
-                i.putExtra("nivell",3);
-                startActivity(i);
-            }
-        });
-        level4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ctr.playBoton();
-                ctr.stopMusic(0);
-                Intent i = new Intent(MainActivity.this, PlayActivity.class);
-                i.putExtra("nivell",4);
-                startActivity(i);
-            }
-        });
-        level5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ctr.playBoton();
-                ctr.stopMusic(0);
-                Intent i = new Intent(MainActivity.this, PlayActivity.class);
-                i.putExtra("nivell",5);
-                startActivity(i);
-            }
-        });
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ctr.playBoton();
-                dialogNivells.dismiss();
-            }
-        });
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ctr.playBoton();
-                dialogNivells.dismiss();
-            }
-        });
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ctr.playBoton();
-                dialogNivells2(dialogNivells, dialogNivells2);
-            }
-        });
-        forward.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ctr.playBoton();
-            }
-        });
-
+        dialogNivells.setContentView(R.layout.dialog_nivells2);
     }
 
-    private void dialogNivells2(final Dialog dialogNivells, final Dialog dialogNivells2){
 
-        //fondo transparente!
-        dialogNivells2.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-
-
-        //evitar que es tanqui al tocar fora
-        dialogNivells2.setCanceledOnTouchOutside(false);
-
-        dialogNivells2.setContentView(R.layout.dialog_nivells2);
-
-        dialogNivells2.show();
-
-        level6 = (Button) dialogNivells2.findViewById(R.id.level6);
-        level7 = (Button) dialogNivells2.findViewById(R.id.level7);
-        level8 = (Button) dialogNivells2.findViewById(R.id.level8);
-        level9 = (Button) dialogNivells2.findViewById(R.id.level9);
-        level10 = (Button) dialogNivells2.findViewById(R.id.level10);
-
-
-        tabac_lvl6 = (ImageView) dialogNivells2.findViewById(R.id.tabac_lvl6);
-        tabac_lvl7 = (ImageView) dialogNivells2.findViewById(R.id.tabac_lvl7);
-        tabac_lvl8 = (ImageView) dialogNivells2.findViewById(R.id.tabac_lvl8);
-        tabac_lvl9 = (ImageView) dialogNivells2.findViewById(R.id.tabac_lvl9);
-        tabac_lvl10 = (ImageView) dialogNivells2.findViewById(R.id.tabac_lvl10);
-
-
-
-        Button next = (Button) dialogNivells2.findViewById(R.id.Next2);
-        Button home = (Button) dialogNivells2.findViewById(R.id.Home2);
-        Button close = (Button) dialogNivells2.findViewById(R.id.boto_close_x2);
-        Button forward = (Button) dialogNivells2.findViewById(R.id.Forward2);
-
-        setNivellsEnabled(6,10);
-        setTabacEnabled(6,10);
-        actualitzat2 = true;
-
-        level6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ctr.playBoton();
-                ctr.stopMusic(0);
-                Intent i = new Intent(MainActivity.this, PlayActivity.class);
-                i.putExtra("nivell",6);
-                startActivity(i);
-            }
-        });
-
-        level7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ctr.playBoton();
-                ctr.stopMusic(0);
-                Intent i = new Intent(MainActivity.this, PlayActivity.class);
-                i.putExtra("nivell",7);
-                startActivity(i);
-            }
-        });
-        level8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ctr.playBoton();
-                ctr.stopMusic(0);
-                Intent i = new Intent(MainActivity.this, PlayActivity.class);
-                i.putExtra("nivell",8);
-                startActivity(i);
-            }
-        });
-        level9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ctr.playBoton();
-                ctr.stopMusic(0);
-                Intent i = new Intent(MainActivity.this, PlayActivity.class);
-                i.putExtra("nivell",9);
-                startActivity(i);
-            }
-        });
-        level10.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ctr.playBoton();
-                ctr.stopMusic(0);
-                Intent i = new Intent(MainActivity.this, PlayActivity.class);
-                i.putExtra("nivell",10);
-                startActivity(i);
-            }
-        });
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ctr.playBoton();
-                dialogNivells2.dismiss();
-                dialogNivells.dismiss();
-            }
-        });
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ctr.playBoton();
-                dialogNivells.dismiss();
-                dialogNivells2.dismiss();
-            }
-        });
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ctr.playBoton();
-            }
-        });
-        forward.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ctr.playBoton();
-                dialogNivells2.dismiss();
-                dialogNivells(dialogNivells, dialogNivells2);
-            }
-        });
-    }
-
-    public void setNivellsEnabled(int min, int max){
-        Boolean [] progress = ctr.getProgress();
-        for(int i = min - 1; i < max; i++){
+    public void setNivellsEnabled(int min, int max) {
+        Boolean[] progress = ctr.getProgress();
+        for (int i = min - 1; i < max; i++) {
             int cas = i + 1;
-            switch (cas){
+            switch (cas) {
                 case 1:
                     level1.getBackground().clearColorFilter();
                     break;
                 case 2:
-                    if(progress[cas-2]){
+                    if (progress[cas - 2]) {
                         level2.getBackground().clearColorFilter();
                         level2.setEnabled(true);
-                    }else{
-                        level2.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY );
+                    } else {
+                        level2.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
                         level2.setEnabled(false);
                     }
                     break;
                 case 3:
-                    if(progress[cas-2]){
+                    if (progress[cas - 2]) {
                         level3.getBackground().clearColorFilter();
                         level3.setEnabled(true);
-                    }else{
-                        level3.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY );
+                    } else {
+                        level3.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
                         level3.setEnabled(false);
                     }
                     break;
                 case 4:
-                    if(progress[cas-2]){
+                    if (progress[cas - 2]) {
                         level4.getBackground().clearColorFilter();
                         level4.setEnabled(true);
-                    }else{
-                        level4.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY );
+                    } else {
+                        level4.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
                         level4.setEnabled(false);
                     }
                     break;
                 case 5:
-                    if(progress[cas-2]){
+                    if (progress[cas - 2]) {
                         level5.getBackground().clearColorFilter();
                         level5.setEnabled(true);
-                    }else{
-                        level5.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY );
+                    } else {
+                        level5.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
                         level5.setEnabled(false);
                     }
                     break;
                 case 6:
-                    if(progress[cas-2]){
+                    if (progress[cas - 2]) {
                         level6.getBackground().clearColorFilter();
                         level6.setEnabled(true);
-                    }else{
-                        level6.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY );
+                    } else {
+                        level6.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
                         level6.setEnabled(false);
                     }
                     break;
                 case 7:
-                    if(progress[cas-2]){
+                    if (progress[cas - 2]) {
                         level7.getBackground().clearColorFilter();
                         level7.setEnabled(true);
-                    }else{
-                        level7.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY );
+                    } else {
+                        level7.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
                         level7.setEnabled(false);
                     }
                     break;
                 case 8:
-                    if(progress[cas-2]){
+                    if (progress[cas - 2]) {
                         level8.getBackground().clearColorFilter();
                         level8.setEnabled(true);
-                    }else{
-                        level8.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY );
+                    } else {
+                        level8.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
                         level8.setEnabled(false);
                     }
                     break;
                 case 9:
-                    if(progress[cas-2]){
+                    if (progress[cas - 2]) {
                         level9.getBackground().clearColorFilter();
                         level9.setEnabled(true);
-                    }else{
-                        level9.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY );
+                    } else {
+                        level9.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
                         level9.setEnabled(false);
                     }
                     break;
                 case 10:
-                    if(progress[cas-2]){
+                    if (progress[cas - 2]) {
                         level10.getBackground().clearColorFilter();
                         level10.setEnabled(true);
-                    }else{
-                        level10.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY );
+                    } else {
+                        level10.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
                         level10.setEnabled(false);
                     }
             }
         }
     }
 
-    public void setTabacEnabled(int min, int max){
-        Boolean [] progress = ctr.getProgressTabac();
-        for(int i = min - 1; i < max; i++){
+    public void setTabacEnabled(int min, int max) {
+        Boolean[] progress = ctr.getProgressTabac();
+        for (int i = min - 1; i < max; i++) {
             int cas = i + 1;
-            switch (cas){
+            switch (cas) {
                 case 1:
-                    if(progress[i]){
+                    if (progress[i]) {
                         tabac_lvl1.setImageResource(R.drawable.tobacco);
-                    }else{
+                    } else {
                         tabac_lvl1.setImageResource(R.drawable.tobacco_bn);
                     }
                     break;
                 case 2:
-                    if(progress[i]){
+                    if (progress[i]) {
                         tabac_lvl2.setImageResource(R.drawable.tobacco);
-                    }else{
+                    } else {
                         tabac_lvl2.setImageResource(R.drawable.tobacco_bn);
                     }
                     break;
                 case 3:
-                    if(progress[i]){
+                    if (progress[i]) {
                         tabac_lvl3.setImageResource(R.drawable.tobacco);
-                    }else{
+                    } else {
                         tabac_lvl3.setImageResource(R.drawable.tobacco_bn);
                     }
                     break;
                 case 4:
-                    if(progress[i]){
+                    if (progress[i]) {
                         tabac_lvl4.setImageResource(R.drawable.tobacco);
-                    }else{
+                    } else {
                         tabac_lvl4.setImageResource(R.drawable.tobacco_bn);
                     }
                     break;
                 case 5:
-                    if(progress[i]){
+                    if (progress[i]) {
                         tabac_lvl5.setImageResource(R.drawable.tobacco);
-                    }else{
+                    } else {
                         tabac_lvl5.setImageResource(R.drawable.tobacco_bn);
                     }
                     break;
                 case 6:
-                    if(progress[i]){
+                    if (progress[i]) {
                         tabac_lvl6.setImageResource(R.drawable.tobacco);
-                    }else{
+                    } else {
                         tabac_lvl6.setImageResource(R.drawable.tobacco_bn);
                     }
                     break;
                 case 7:
-                    if(progress[i]){
+                    if (progress[i]) {
                         tabac_lvl7.setImageResource(R.drawable.tobacco);
-                    }else{
+                    } else {
                         tabac_lvl7.setImageResource(R.drawable.tobacco_bn);
                     }
                     break;
                 case 8:
-                    if(progress[i]){
+                    if (progress[i]) {
                         tabac_lvl8.setImageResource(R.drawable.tobacco);
-                    }else{
+                    } else {
                         tabac_lvl8.setImageResource(R.drawable.tobacco_bn);
                     }
                     break;
                 case 9:
-                    if(progress[i]){
+                    if (progress[i]) {
                         tabac_lvl9.setImageResource(R.drawable.tobacco);
-                    }else{
+                    } else {
                         tabac_lvl9.setImageResource(R.drawable.tobacco_bn);
                     }
                     break;
                 case 10:
-                    if(progress[i]){
+                    if (progress[i]) {
                         tabac_lvl10.setImageResource(R.drawable.tobacco);
-                    }else{
+                    } else {
                         tabac_lvl10.setImageResource(R.drawable.tobacco_bn);
                     }
                     break;

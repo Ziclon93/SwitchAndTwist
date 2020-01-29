@@ -32,27 +32,31 @@ public class MainThread extends Thread {
 
     private int nivell;
 
-    public void setResume(boolean running) {
+    void setResume(boolean running) {
         this.running = running;
     }
 
-    public MainThread(SurfaceHolder surfaceHolder, GamePanel gamePanel, int nivell){
+    MainThread(SurfaceHolder surfaceHolder, GamePanel gamePanel, int nivell) {
         super();
         this.surfaceHolder = surfaceHolder;
         this.nivell = nivell;
         this.gamePanel = gamePanel;
         this.mHandlerMostrat = false;
     }
-    public void setHandler (boolean mHandlerMostrat){
+
+    public void setHandler(boolean mHandlerMostrat) {
         this.mHandlerMostrat = mHandlerMostrat;
     }
-    public void setPause() {
+
+    void setPause() {
         this.paused = true;
     }
 
-    public void setResume() { this.paused = false; }
+    void setResume() {
+        this.paused = false;
+    }
 
-    public boolean getPause(){
+    boolean getPause() {
         return paused;
     }
 
@@ -64,20 +68,20 @@ public class MainThread extends Thread {
         long waitTime;
         int framecount = 0;
         long totaltime = 0;
-        long targetTime = 1000/MAX_FPS;
+        long targetTime = 1000 / MAX_FPS;
 
 
-        while(running) {
+        while (running) {
             timeSpeed = System.nanoTime() - startTime;
             startTime = System.nanoTime();
             canvas = null;
 
 
             try {
-                if(!paused){
+                if (!paused) {
                     canvas = this.surfaceHolder.lockCanvas();
                     synchronized (surfaceHolder) {
-                        this.gamePanel.update(timeSpeed/10000000.0f);
+                        this.gamePanel.update(timeSpeed / 10000000.0f);
                         this.gamePanel.draw(canvas);
 
                         if (this.gamePanel.isGameWin() && !mHandlerMostrat) {
@@ -89,17 +93,19 @@ public class MainThread extends Thread {
                     }
 
                 }
-            } catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             } finally {
                 if (canvas != null) {
                     try {
                         surfaceHolder.unlockCanvasAndPost(canvas);
-                    } catch(Exception e) { e.printStackTrace(); }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
-            timeMillis = (System.nanoTime() - startTime)/1000;
+            timeMillis = (System.nanoTime() - startTime) / 1000;
             waitTime = targetTime - timeMillis;
 
             try {
@@ -107,31 +113,33 @@ public class MainThread extends Thread {
                     this.sleep(waitTime);
                 }
 
-            }catch(Exception e) { e.printStackTrace(); }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             totaltime += System.nanoTime() - startTime;
             framecount++;
-            if ( framecount == MAX_FPS) {
+            if (framecount == MAX_FPS) {
                 framecount = 0;
                 totaltime = 0;
             }
-            }
+        }
 
     }
 
-    final Runnable ejecutarWin = new Runnable (){
-        public void run(){
+    final Runnable ejecutarWin = new Runnable() {
+        public void run() {
             showDialogWin();
         }
     };
 
-    final Runnable ejecutarLose = new Runnable (){
-        public void run(){
+    final Runnable ejecutarLose = new Runnable() {
+        public void run() {
             showDialogLose();
         }
     };
 
-    public void showDialogLose(){
+    public void showDialogLose() {
         this.setPause();
 
         final Dialog dialogLose = new Dialog(Dades.Context_Actual);
@@ -176,8 +184,7 @@ public class MainThread extends Thread {
     }
 
 
-
-    public void showDialogWin(){
+    public void showDialogWin() {
 
         this.setPause();
 
@@ -197,7 +204,7 @@ public class MainThread extends Thread {
 
         ImageView image = (ImageView) dialogWin.findViewById(R.id.imgTabac);
 
-        if (this.nivell >= 9){
+        if (this.nivell >= 9) {
             next.setEnabled(false);
         }
         next.setOnClickListener(new View.OnClickListener() {
@@ -220,10 +227,9 @@ public class MainThread extends Thread {
             }
         });
 
-        if(isTabacTrobat){
+        if (isTabacTrobat) {
             image.setImageResource(R.drawable.tobacco);
-        }
-        else{
+        } else {
             image.setImageResource(R.drawable.tobacco_bn);
         }
 

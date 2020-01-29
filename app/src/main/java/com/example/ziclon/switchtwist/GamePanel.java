@@ -6,12 +6,11 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 
-public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
+public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     private MainThread thread;
     private ManagerEscena mE;
     private int nivell;
-
 
     public GamePanel(Context context, int nivell) {
         super(context);
@@ -21,21 +20,21 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
 
         Dades.Context_Actual = context;
 
-        if(nivell == 0){
+        if (nivell == 0) {
             mE = new ManagerEscena();
-        }else{
+        } else {
             mE = new ManagerEscena(nivell);
         }
         setFocusable(true);
     }
 
-    public void FiExec(boolean ex){
+    public void FiExec(boolean ex) {
 
         thread.setResume(ex);
 
-        if(ex){
+        if (ex) {
             thread.start();
-        }else {
+        } else {
             try {
                 thread.join();
             } catch (InterruptedException e) {
@@ -45,40 +44,36 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     }
 
     @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
-    }
-
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) { }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
 
 
-        thread = new MainThread(getHolder(), this,this.nivell);
+        thread = new MainThread(getHolder(), this, this.nivell);
         thread.setResume(true);
         thread.start();
     }
 
-
-
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
 
-        while(true){
+        while (true) {
             try {
                 thread.setResume(false);
                 thread.join();
                 break;
-            } catch(Exception e) {e.printStackTrace(); }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
-
 
     public void update(float l) {
         mE.update(l);
     }
 
-    public void setDirection(int dir){
+    public void setDirection(int dir) {
         mE.setDirection(dir);
     }
 
@@ -89,18 +84,21 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         mE.draw(canvas);
 
     }
-    public void Switch(){
+
+    public void Switch() {
         mE.Switch();
     }
 
-    public void Twist() { mE.Twist(); }
+    public void Twist() {
+        mE.Twist();
+    }
 
     public void reset() {
         mE.Reset();
         thread.setResume();
     }
 
-    public void setPause(){
+    public void setPause() {
         thread.setPause();
     }
 
@@ -109,23 +107,23 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         thread.setResume();
     }
 
-    public boolean getPause(){
+    public boolean getPause() {
         return thread.getPause();
     }
 
-    public void nextEscena(){
+    public void nextEscena() {
         mE.nextEscena();
     }
 
-    public boolean isGameWin(){
+    public boolean isGameWin() {
         return mE.isGameWin();
     }
 
-    public boolean isGameOver(){
+    public boolean isGameOver() {
         return mE.isGameOver();
     }
 
-    public boolean isTabacTrobat(){ return mE.isTabacTrobat();}
-
-
+    public boolean isTabacTrobat() {
+        return mE.isTabacTrobat();
+    }
 }
